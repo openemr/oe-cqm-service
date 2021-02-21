@@ -1,7 +1,7 @@
 {
-  "name": "cqm-js",
+  "name": "cqm-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "dependencies": {
     "cqm-execution": "^3.0.3",
