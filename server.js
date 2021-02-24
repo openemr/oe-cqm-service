@@ -11,6 +11,30 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb', parameterLimit: '
 const LISTEN_PORT = process.env.CQM_EXECUTION_SERVICE_PORT || 8081; // Port to listen on
 const REQUIRED_PARAMS = ['measure', 'valueSets', 'patients']; // Required params for calculation
 
+process.on('SIGTERM', shutDown);
+process.on('SIGINT', shutDown);
+
+let connections = [];
+
+app.on('connection', connection => {
+    connections.push(connection);
+    connection.on('close', () => connections = connections.filter(curr => curr !== connection));
+});
+
+function shutDown() {
+    server.close(() => {
+        console.log('Closed out remaining connections');
+        process.exit(0);
+    });
+
+    setTimeout(() => {
+        console.error('Could not close connections in time, forcefully shutting down');
+        process.exit(1);
+    }, 10000);
+
+    connections.forEach(curr => curr.end());
+    setTimeout(() => connections.forEach(curr => curr.destroy()), 5000);
+}
 
 // All logging is to the console, docker can save these messages to file if desired
 const logger = winston.createLogger({
@@ -93,12 +117,29 @@ app.post('/calculate', function (request, response) {
 
 });
 
+/**
+ * Version; Informs a client which version of js-ecqm-engine and cqm-models this
+ * service is currently utilizing.
+ *
+ * @name Version
+ * @route {GET} /version
+ */
+app.get('/shutdown', function (request, response) {
+    logger.log({ level: 'info', message: 'GET /shutdown. headers: ' + JSON.stringify(request.headers) });
+    shutDown();
+    response.send({
+        'shutdown': true,
+    });
+});
+
 app.use(function (request, response, next) {
   response.status(404).send();
 });
 
-module.exports = app.listen(LISTEN_PORT, () =>
+const server = app.listen(LISTEN_PORT, () =>
 {
-  logger.log({level: 'info', message: 'cqm-execution-service is now listening on port ' + LISTEN_PORT});
-  app.emit("listening")
+    logger.log({level: 'info', message: 'cqm-execution-service is now listening on port ' + LISTEN_PORT});
+    app.emit("listening")
 });
+
+module.exports = server
