@@ -99,15 +99,17 @@ app.post('/calculate', function (request, response) {
   // Grab params from request.
   const {measure, valueSets, patients, options = {}} = request.body
 
-  if (!Array.isArray(valueSets)){
+  const valueSetsObj = JSON.parse(valueSets)
+  if (!Array.isArray(valueSetsObj)){
     logger.log({ level: 'error', message: 'GET /calculate. valueSets not passed as an array, headers: ' + JSON.stringify(request.headers) });
     response.status(400).send({'input error': 'value sets must be passed in as an array'});
     return;
   }
-
+  const measureObj = JSON.parse(measure)
+  const patientsObj = JSON.parse(patients)
   try {
-    results = calculator.calculate(measure, patients, valueSets, options);
-    logger.log({ level: 'info', message: 'GET /calculate. measure: ' + measure['cms_id'] + ' patient_count: ' + patients.length });
+    results = calculator.calculate(measureObj, patientsObj, valueSetsObj, options);
+    logger.log({ level: 'info', message: 'GET /calculate. measure: ' + measureObj['cms_id'] + ' patient_count: ' + patientsObj.length });
     response.json(results);
   } catch(error) {
     logger.log({ level: 'error', message: `GET /calculate. error in the calculation engine: ${error} headers: ${JSON.stringify(request.headers)}` });
