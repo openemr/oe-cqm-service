@@ -107,8 +107,9 @@ app.post('/calculate', function (request, response) {
   }
   const measureObj = JSON.parse(measure)
   const patientsObj = JSON.parse(patients)
+  const optionsObj = JSON.parse(options)
   try {
-    results = calculator.calculate(measureObj, patientsObj, valueSetsObj, options);
+    results = calculator.calculate(measureObj, patientsObj, valueSetsObj, optionsObj);
     logger.log({ level: 'info', message: 'GET /calculate. measure: ' + measureObj['cms_id'] + ' patient_count: ' + patientsObj.length });
     response.json(results);
   } catch(error) {
