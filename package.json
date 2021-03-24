@@ -13,7 +13,7 @@
   "deprecated": false,
   "license": "MIT",
   "main": "server.js",
-  "name": "cqm-service",
+  "name": "oe-cqm-service",
   "scripts": {
     "start": "node server.js"
   },
