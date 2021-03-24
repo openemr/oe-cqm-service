@@ -1,26 +1,4 @@
 {
-  "_from": "github:mi-squared/cqm-service",
-  "_id": "cqm-service@1.0.0",
-  "_inBundle": false,
-  "_integrity": "",
-  "_location": "/cqm-service",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "git",
-    "raw": "mi-squared/cqm-service",
-    "rawSpec": "mi-squared/cqm-service",
-    "saveSpec": "github:mi-squared/cqm-service",
-    "fetchSpec": null,
-    "gitCommittish": null
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "github:mi-squared/cqm-service#5ec2c333f791eeb42fab7bc379bfb2154ec212c6",
-  "_spec": "mi-squared/cqm-service",
-  "_where": "/Users/kchapple/Dev/openemr/openemr",
-  "bundleDependencies": false,
   "dependencies": {
     "compression": "^1.7.3",
     "cqm-execution": "^3.0.3",
@@ -28,10 +6,14 @@
     "winston": "^3.0.0",
     "oe-cqm-parsers": "5.5.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-squared/oe-cqm-parsers.git"
+  },
   "deprecated": false,
   "license": "MIT",
   "main": "server.js",
-  "name": "cqm-service",
+  "name": "oe-cqm-service",
   "scripts": {
     "start": "node server.js"
   },
