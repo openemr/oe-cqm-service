@@ -4,9 +4,9 @@
     "cqm-execution": "^3.0.3",
     "express": "^4.16.3",
     "winston": "^3.0.0",
-    "oe-cqm-parsers": "github:mi-squared/oe-cqm-parsers",
+    "oe-cqm-parsers": "github:mi-squared/oe-cqm-parsers"
   },
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/mi-squared/oe-cqm-parsers.git"
   },
