@@ -1,14 +1,16 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
-const calculator = require('cqm-execution').Calculator;
 const compression = require('compression');
 const winston = require('winston');
+const calculator = require('cqm-execution').Calculator;
+const parser = require('oe-cqm-parsers')
 
 app.use(compression());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb', parameterLimit: '5000' }));
 
 const LISTEN_PORT = process.env.CQM_EXECUTION_SERVICE_PORT || 8081; // Port to listen on
+const SERVER_HOST = '127.0.0.1'; // Listen on loopback interface so not exposed to outside world
 const REQUIRED_PARAMS = ['measure', 'valueSets', 'patients']; // Required params for calculation
 
 process.on('SIGTERM', shutDown);
@@ -139,7 +141,7 @@ app.use(function (request, response, next) {
   response.status(404).send();
 });
 
-const server = app.listen(LISTEN_PORT, () =>
+const server = app.listen(LISTEN_PORT, SERVER_HOST, () =>
 {
     logger.log({level: 'info', message: 'cqm-execution-service is now listening on port ' + LISTEN_PORT});
     app.emit("listening")

@@ -1,4 +1,5 @@
 const Calculator = require('cqm-execution').Calculator;
+const Parsers = require('oe-cqm-parsers');
 
 // Example fixture loader (useful for this example).
 const fs = require('fs');
