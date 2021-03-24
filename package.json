@@ -28,6 +28,10 @@
     "winston": "^3.0.0",
     "oe-cqm-parsers": "github:mi-squared/oe-cqm-parsers",
   },
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/mi-squared/oe-cqm-parsers.git"
+  },
   "deprecated": false,
   "license": "MIT",
   "main": "server.js",
