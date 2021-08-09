@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const winston = require('winston');
 const calculator = require('cqm-execution').Calculator;
-const parser = require('oe-cqm-parsers')
 
 app.use(compression());
 app.use(bodyParser.json({ limit: '50mb' }));
