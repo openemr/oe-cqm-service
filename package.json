@@ -4,7 +4,7 @@
     "cqm-execution": "^3.0.3",
     "express": "^4.16.3",
     "winston": "^3.0.0",
-    "oe-cqm-parsers": "openemr/oe-cqm-parsers"
+    "oe-cqm-parsers": "git+https://github.com/openemr/oe-cqm-parsers"
   },
   "deprecated": false,
   "license": "MIT",
